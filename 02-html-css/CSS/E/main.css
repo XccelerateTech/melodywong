@@ -1,0 +1,28 @@
+.container{
+    width:500px;
+    height:200px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.blue{
+ background: blue;
+ 
+}
+
+.red{
+    background: red;  
+    align-self:flex-end;
+}
+
+.green{
+    background: green;
+
+}
+
+.box{
+    height:100px;
+    width: 100px;
+}
