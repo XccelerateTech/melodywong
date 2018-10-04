@@ -19,4 +19,4 @@ function counting(string,character){
 
 }
 
-counting('My name is Mimi.','m');
+counting('Hello worlD.','o');
