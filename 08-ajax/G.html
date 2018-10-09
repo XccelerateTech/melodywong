@@ -1,0 +1,50 @@
+<!--Write a function that takes an id as a parameter, 
+    it should look for an element with that id and remove all it’s child elements.
+-->
+
+<!-- Write a function that takes one parameter which represents a class name. The function should return an array with all elements that have the class name.-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sample Page</title>
+    </head>
+    <body>
+        <h1>My Homepage</h1>
+        <div class="content-section">
+            <p>
+                I'm a paragraph
+            </p>
+        </div>
+        <div class="content-section">
+            <h3>Section Heading</h3>
+            <p>
+                Another paragraph
+            </p>
+            <div id="info-field">
+                <p>
+                    some info
+                    
+                </p>
+                <p>
+                    more info  
+                </p>
+            </div>
+        </div>
+        <script>
+            var parameter;
+            function removeChild(parameter){
+                var remover=document.getElementById(parameter);
+               
+                remover.removeChild(remover.childNodes[1]);
+           
+                
+                console.log(remover)
+            }
+
+            removeChild("info-field");
+
+        </script>
+    </body>
+</html>
