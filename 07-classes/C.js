@@ -10,10 +10,10 @@ class Gambler{
         this.name=options.name;
         this.cash=options.cash;
         this.probability=options.probability;
+        this.bet=options.bet;
     }
 
     gamble(){
-        this.bet=this.cash;
         
        if( Math.random()<this.probability){//lose
         this.cash=this.cash-this.bet
@@ -24,9 +24,9 @@ class Gambler{
     }
 }
 
-var jason=new Gambler({name:'Jason',cash:100,probability:0.1});
-var katy=new Gambler({name:'Katy',cash:100,probability:0.8});
-var mimi=new Gambler({name:'Mimi',cash:100,probability:0.5});
+var jason=new Gambler({name:'Jason',cash:100,probability:0.9,bet:20});
+var katy=new Gambler({name:'Katy',cash:100,probability:0.8,bet:15});
+var mimi=new Gambler({name:'Mimi',cash:100,probability:0.5,bet:10});
 var allPlayers=[jason,katy,mimi];
 var processPlayers=[jason,katy,mimi];
 var loserCount=0;
@@ -35,7 +35,7 @@ var loser=[];
 
 
 function gambling(){
-    while(loserCount<allPlayers.length){
+    while(jason.cash>0||katy.cash>0||mimi.cash>0){
         for(var i=0;i<allPlayers.length;i++){
             allPlayers[i].gamble();
 
