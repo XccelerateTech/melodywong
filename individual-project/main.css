@@ -1,0 +1,348 @@
+
+html,body
+{
+    font-family: 'Roboto Condensed', sans-serif !important;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    position: relative;
+    width: 100vw;
+}
+
+p{
+    font-weight:100;
+    opacity:1;
+}
+
+.navbar{
+    width:100vw !important;
+    height:70px;
+    border:0;
+}
+
+.navbar.scrolled {
+    background-color: white !important;
+    opacity:0.9;
+    transition: background-color 200ms linear;
+  }
+
+  nav .navbar-nav li a.scrolled{
+    color:black !important;
+  }
+
+nav .navbar-nav li a{
+   
+    color: white !important;
+    opacity: 1 !important;
+    text-transform:uppercase;
+    font-size:25px;
+    margin:5px 10px 5px 20px;
+    font-weight:bold;
+    transition: .4s ease;
+    }
+
+nav .navbar-toggler{
+    border:gray 2px solid;
+}
+
+
+h1{
+    text-transform:uppercase;
+}
+
+.first{
+    margin:0 !important;
+    min-height:100vh;
+    background-image:linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,0.15)),url("assets/background.png");
+    background-size:cover;
+    background-position:center top;
+    background-repeat: no-repeat;
+}
+
+.name-pic{
+    max-width:50vw;
+}
+
+.hero-text {
+    padding-top:35vh;
+    padding-left:3vh;
+    padding-right:3vh;
+    color: white;
+    flex-direction:column;
+    text-align:center;
+  }
+
+.hero-text h1{
+    padding-top:4vh;
+    font-size:30px;
+}
+
+.about{
+    background-color:#b3f1d7;
+    color:black;
+    text-align:left;
+    padding:0;
+}
+
+.about-me{
+    padding:50px 30px 50px 30px !important;
+}
+
+
+aboutimage{
+    width: 100%;
+    margin-top: -5%;
+    min-height: 707px;
+    position: absolute;
+}
+
+
+.about p{
+    padding-top:30px;
+    line-height: 200%;
+    opacity:0.8;
+    font-size:23px;
+}
+
+.white-button{
+    background-color:white;
+    border:0;
+    color:black;
+    font-weight:bold;
+    font-size:15px;
+    text-transform:uppercase;
+    border-radius: 40px;
+    padding:15px;
+    margin-top:20px;
+}
+
+.portfolio{
+    margin:40px 0 80px 0;
+}
+
+
+.portbar{
+    display:flex;
+    justify-content: space-between;
+}
+
+#website-button, #app-button{
+    color:#2caa87;
+    background-color:white;
+    border:#2caa87 2px solid;
+    text-align:left;
+    padding: 10px 20px 10px 20px;
+    margin: 10px;
+    font-size:20px;
+}
+
+#website-button:hover, #app-button:hover{
+    background-color:#2caa87;
+    color:white;
+
+}
+
+
+.galleryimage{
+    height:300px !important;
+    width:300px !important;
+    object-fit: cover;
+    margin-bottom:10px;
+    
+}
+
+
+.overlay1 {
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #2caa87;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+  }
+
+.text{
+    font-size:25px;
+    color:white;
+    opacity:1 !important;
+}
+
+.imm{
+    display:flex;
+    justify-content: center;
+}
+  
+.imm:hover .overlay1 {
+    opacity: 0.95;
+  }
+
+
+.computer-image{
+    position: absolute;
+    z-index: 10;
+}
+
+.fas,.far,.fab{
+    font-size:50px;
+    color:white;
+    padding:0 30px 20px 0;
+
+}
+
+.fas:hover,.far:hover,.fab:hover{
+    color:black;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0.2;
+    z-index:100;
+    background-color: #2caa87;
+  }
+
+
+  
+.contact{
+    background-image:url("assets/contact-bg.jpg");
+   
+    background-position:top bottom;
+    padding:50px 10px 100px 5vw;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+
+}
+
+
+#contact-me{
+ 
+    padding-bottom:10px !important;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+form{
+    padding:0;
+    width: 60vw;
+    display:none;
+}
+
+form p{
+    color:#f072ca;
+}
+
+#message{
+    height:12vh;
+}
+
+.phone-image{
+    max-height: 400px;
+}
+
+#submit{
+    background-color:#2caa87;
+    color:white;
+    border-color:#2caa87;
+}
+
+#submit:hover{
+    background-color:white;
+    color:#2caa87;
+    border-color:#2caa87;
+}
+
+.social{
+    padding: 20px 0 10px 50px;
+    background-color:#2caa87;
+}
+
+
+
+
+@media only screen and (max-width: 600px) {
+    h1{
+        font-size:20px !important;
+    }
+
+    .name-pic{
+        min-width:70vw;
+    }
+
+    .navbar{
+        width:100vw !important;
+        height:60px;
+        border:0;
+    }
+
+    nav .navbar-nav li a{
+        color: black !important;
+        font-size:20px;
+        padding-top:0 !important;
+        }
+
+    .navbar-nav  li {
+        background-color:white;
+        opacity:0.9;
+    }
+
+
+    .first{
+        min-height:70vh;
+    }
+    .hero-text {
+        flex-direction:column;
+        text-align:center;
+        padding-top:25vh;
+      }
+
+    .portfolio{
+        padding:0 5vw 0 5vw;
+        margin:20px 0 15px 0;
+    }
+      
+    .portbar{
+        display:block;
+        margin-bottom:10px;
+        margin-left:10px
+    }
+
+    .port-select{
+        display:flex;
+        justify-content: flex-end;
+        align-items: flex-start !important;
+    }
+    
+    #website-button, #app-button{
+        font-size:18px;
+        padding: 0 10px 5px 10px;
+        margin: 0 15px 0px 0px;
+
+    }
+
+    .about p{
+        font-size:18px;
+        padding-top:5px
+    }
+
+    .about-me{
+        padding:30px 30px 50px 30px !important;
+    }
+
+    form{
+        width:90vw;
+    }
+    
+}
+
