@@ -2,27 +2,38 @@
 
 //take turns to play
 var counter=0;
+var taken=0;
 $('.result').fadeIn("slow");
 
 
 $('.play').on('click','.box',function(e){
     //check if the box is filled
-    var x=$(this).html();
-    var y=$(this);
-    if(x==="o"||x==="X"){
+    var o=$(this).children()[0];
+    var x=$(this).children()[1];
+    var h=$(this).children()[2];
+    
+    if($(h).html()!=""){
         alert("this box is taken")
     }else{
         if(counter%2==0){//0 and even number
-        y.append("o").show();
+        $(o).show("slow");
+        $(x).remove();
+        $(h).html("o");
+        console.log($(h).html());
         $('.who').html("X's turn.");
-
         }else{
-        y.html("X");
+        $(x).show("slow");
+        $(o).remove();
         $('.who').html("o's turn.");
+        $(h).html("x");
         }
         counter=counter+1;
 
     }
+
+    var a=$('.1').children()[1]
+    console.log(h);
+    console.log(a)
 
 
     //check win
