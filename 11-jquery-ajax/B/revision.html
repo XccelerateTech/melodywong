@@ -1,0 +1,49 @@
+<html>
+    <head>
+            <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <button>Random name</button>
+        <script>
+       
+        var arr=[];
+        var def1=$.get("https://randomuser.me/api/")    
+        var def2=$.get("https://randomuser.me/api/")      
+        
+        function doneCallback(data) {
+            arr.push(data.results[0].location.coordinates.latitude);
+            arr.push(data.results[0].location.coordinates.longitude);
+            arr.push(data.results[0].location.timezone.offset);
+        }
+        
+        function sunrise(lat,long,x,y){  
+                    $(function(){ 
+                            $.get({
+                                url:`https://api.sunrise-sunset.org/json?lat=${lat}0&lng=${long}`,
+                        
+                            }).done(function(data){
+                                //append in result.html 
+                            $('body').append(`<p> User `+x+`'s timezone is `+y+ `. The sunrise time is ` + data.results.sunrise+ ` and the sunset time is `+data.results.sunset+`</p>`)
+                            }).fail(function(data){
+                                console.log("Error");
+                            })     
+                    });
+                }
+   
+   
+  // Resolve the Deferred object when the button is clicked
+        $( "button" ).on( "click", function(re) {
+            $.when(def1).done(doneCallback);
+            $.when(def2).done(doneCallback);
+            
+            sunrise(arr[0],arr[1],1,arr[2]);
+            sunrise(arr[3],arr[4],2,arr[5]);    
+        });
+        
+            </script>
+    
+    </body>
+</html>
