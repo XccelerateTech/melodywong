@@ -2,36 +2,61 @@ const EventEmitter = require('events');
 const user=require('./input');
 const computer=require('./computer');
 
+var userChoice=new user();
+var computerChoice=new computer();
+var a='';
+var b;
+
 class Referee extends EventEmitter {
     constructor() {
         super();
+        this.arr=[];
+    }
+
+    listen(result){
+
+        this.arr.push(result);
+        if(this.arr.length>1){
+            this.emit('receive-both') 
+        }
     }
 
     judge(){
-        console.log("user"+a)
-        console.log("computer"+b)
+        var user=this.arr[1];
+        var computer=this.arr[0];
+        if(user==='paper'&&computer==='scissors'){
+            console.log("Computer wins.")
+        }else if(user==='paper'&&computer==='rock'){
+            console.log("User wins.")
+        }else if(user==='scissors'&&computer==='rock'){
+            console.log("Computer wins.")
+        }else if(user==='scissors'&&computer==='paper'){
+            console.log("User wins.")
+        }else if(user==='rock'&&computer==='paper'){
+            console.log("Computer wins.")
+        }else if(user==='rock'&&computer==='scissors'){
+            console.log("User wins.")
+        }else{
+            console.log("Draw.")
+    }
+
     }
 }
 
-var userChoice=new user();
-var computerChoice=new computer();
 var referee=new Referee();
-var a;
-var b;
 
-
-userChoice.on('receive-user',function(result){
-    computerChoice.input();
-    a=result;
-    console.log('receive-user')
+referee.on('receive-both',function(){
+    referee.judge();
 })
 
 computerChoice.on('receive-computer',function(result){
-    b=result;
-   // referee.judge();
-    console.log('receive-computer')
+    referee.listen(result);
 })
 
-
+userChoice.on('receive-user',function(result){
+    computerChoice.input();
+    referee.listen(result);
+})
 
 userChoice.input('paper');
+
