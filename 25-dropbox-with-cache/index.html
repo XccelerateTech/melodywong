@@ -1,0 +1,64 @@
+<html>
+    <head>
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+                    rel="stylesheet" 
+                    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+                    crossorigin="anonymous">
+
+            <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <!--upload file-->
+        <div class="jumbotron" style="display:flex;height:200px; width:500px; background-color:white;border:2px gray solid; border-radius: 25px;padding:30px">
+        <form action="/upload" method="POST" encType="multipart/form-data">
+            
+            <div class="form-group">
+                <label>
+                    Upload a file:
+                    <input type='file' name="profile" class="form-control"/>
+                </label>
+            </div>
+            <input type='submit' value="Submit" class="btn btn-primary submitButton"/>
+        </form>
+        </div>
+
+        <!-- <button id="update">Update</button> -->
+
+        <h5>Uploaded files:</h5>
+        <p>(Click the file to download)</p>
+        <div id="uploaded">
+         
+
+        </div>
+        <script>
+        var counter=0;
+        $('.submitButton').click(function(){
+            setTimeout(function(){ 
+            $.ajax({
+            url:"allfiles/",
+            type: "GET",
+            }).done(function(data){
+                $('#uploaded').append(`<a href="/files/${data[counter]}"><p>${data[counter]}</p></a>`)
+                console.log("doing something ",data[counter]);
+                counter=counter+1;
+                console.log(counter)
+            }).fail(function(data){
+                console.log("This function will be run if the ajax if failed");
+            })
+
+                 }, 500);
+
+            }
+
+
+        )
+
+        </script>
+    </body>
+</html>
