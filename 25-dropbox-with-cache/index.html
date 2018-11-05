@@ -37,27 +37,22 @@
 
         </div>
         <script>
-        var counter=0;
-        $('.submitButton').click(function(){
-            setTimeout(function(){ 
+     
+     
             $.ajax({
             url:"allfiles/",
             type: "GET",
             }).done(function(data){
-                $('#uploaded').append(`<a href="/files/${data[counter]}"><p>${data[counter]}</p></a>`)
-                console.log("doing something ",data[counter]);
-                counter=counter+1;
-                console.log(counter)
+                    for (var i=0;i<data.length;i++){
+                        $('#uploaded').append(`<a href="/files/${data[i]}"><p>${data[i]}</p></a>`)
+                    }
             }).fail(function(data){
                 console.log("This function will be run if the ajax if failed");
             })
 
-                 }, 500);
+              
 
-            }
-
-
-        )
+            
 
         </script>
     </body>

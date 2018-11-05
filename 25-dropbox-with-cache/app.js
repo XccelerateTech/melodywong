@@ -51,9 +51,12 @@ app.post('/upload',upload.single('profile'),(req,res)=>{
     writeFile()
         .then(function(result){
             cache.push(result);
-            return cache
+            
+            res.redirect('/');
         })
-        .then(function(result){})
+        // .then(function(){ 
+        //     res.redirect('/');
+        // })
         .catch((err) => console.log('uh oh error', err));
 	
 });
@@ -69,7 +72,6 @@ app.get('/files/:id', function(req, res){
                 if (err){
                   console.log(err);
                 } else {
-
                   console.log('downloading successful');
                 }
             });
@@ -81,8 +83,8 @@ app.get('/files/:id', function(req, res){
 
 app.get('/allfiles', function(req, res){
     // setTimeout(function(){ 
-        console.log("hi");
         res.send(cache);
+        
     // }, 1000);
     
 });
