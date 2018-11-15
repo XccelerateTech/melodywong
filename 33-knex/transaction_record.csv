@@ -1,0 +1,8 @@
+BUY, lemon,20
+BUY, orange,40
+SELL, orange,60
+BUY, lime,40
+SELL, lemon,60
+SELL,lime,60
+BUY,grapefruit,40
+SELL,grapefruit,60
