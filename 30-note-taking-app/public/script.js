@@ -1,3 +1,36 @@
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+ }
+
+function update(){
+    $.ajax( {
+        type:'get',
+        url:"/api/notes"
+    })
+    .done(function(data){
+        function notes(i,title,text){
+            return `<div class='noteLink' onclick="loadNote(${i},'${title}','${text}')">${title}</div>`
+        }
+
+        $('.allnotes').html('');
+
+        for(var i=0;i<data.length;i++){
+            
+            $('.allnotes').append(notes(i,escapeHtml(data[i].title),escapeHtml(data[i].text)))
+                    
+        }
+    })
+    .fail(function() {
+        alert( "Update List Error" );
+    });
+}
+
+
 $('#addNew').on('click',function(){
     $('.content').html();
     $('.content').html(`
@@ -8,30 +41,43 @@ $('#addNew').on('click',function(){
      <textarea id="text" name='text' placeholder="Input notes"></textarea>
 
     </form>
-    <button class='btn btn-outline-success' onclick="submitNote()" id="noteButton" form="note" ><i class="fas fa-save"></i> Save</button>
+    <button class='btn btn-outline-success' onclick="submitNote()" id="noteButton" ><i class="fas fa-save"></i> Save</button>
     
     `)
 
  })
 
 
- function submitNote(){
+ function submitNote(e){
     let form=$('#note')
 
-    $.ajax({
-        type: 'post',
-        url: '/api/notes',
-        data: form.serialize()
-      }).done(function(data) {
-        update()
-      }).fail(function(data) {
-        alert("Error!")
-      });
+    // $.ajax({
+    //     type: 'post',
+    //     url: '/api/notes',
+    //     data: form.serialize()
+    //   }).done(function(data) {
+    //     update()
+    //   }).fail(function(data) {
+    //     alert("Submit Note Error!")
+    //   });
+
+    axios.post('/api/notes', {
+        title: $('#title').val(),
+        text:$('#text').val()
+        
+    }).then(function(res){
+        update();
+        $('#title').val('');
+        $('#text').val('');
+    })
+
+
  
  }
 
 
  function loadNote(i,title,data){
+    
                     $('.content').html(`
                     <form id='note'>
                     
@@ -42,7 +88,7 @@ $('#addNew').on('click',function(){
                     
                     </form>
                     <div class='saveDeleteButtons'>
-                    <button onclick="putNote(${i})"class='btn btn-outline-success' id="noteButton" form="note"><i class="fas fa-save"></i> Save</button>
+                    <button onclick="putNote(${i})"class='btn btn-outline-success' id="noteButton"><i class="fas fa-save"></i> Save</button>
                     <button onclick="deleteNote(${i})" class='btn btn-outline-danger' id="deleteButton" ><i class="fas fa-trash-alt"></i> Delete</button>
                     </div>
                     
@@ -52,7 +98,6 @@ $('#addNew').on('click',function(){
     
 function putNote(i){
     let form=$('#note')
-    console.log("what is",i)
 
     $.ajax({
         type: 'post',
@@ -61,26 +106,11 @@ function putNote(i){
       }).done(function() {
         update()
       }).fail(function() {
-        alert("Error!")
+        alert("Put Note Error!")
       });
  }
 
-function update(){
-                $.get( "/api/notes")
-                .done(function(data){
-                    $('.allnotes').html('');
-                    for(var i=0;i<data.length;i++){
-                        $('.allnotes').append(`<div class='noteLink' onclick="loadNote(${i},'${data[i].title}','${data[i].text}')">${data[i].title}</div>`)
-                                
-                    }
-                })
-                .fail(function() {
-                    alert( "error" );
-                });
-}
-
-function deleteNote(i){
-    console.log("hhhee",i)
+function deleteNote(i){   
     $.post( `/api/notes/${i}?_method=DELETE`)
     .done(function(data){
         $.get( "/api/notes")
@@ -92,13 +122,13 @@ function deleteNote(i){
                 $('.content').html();
                 $('.content').html(`
             
-                <form action="/api/notes" method="post" id='note'>
+                <form id='note'>
             
                  <input type="text" id="title" name='title' placeholder="Title">
                  <textarea id="text" name='text' placeholder="Input notes"></textarea>
             
                 </form>
-                <button class='btn btn-outline-success' onclick="submitNote()" id="noteButton" form="note" ><i class="fas fa-save"></i> Save</button>
+                <button class='btn btn-outline-success' onclick="submitNote()" id="noteButton"><i class="fas fa-save"></i> Save</button>
                 
                 `)
             
@@ -106,7 +136,7 @@ function deleteNote(i){
         })
         
     .fail(function() {
-        alert( "error" );
+        alert( "Delete Note Error" );
     });
 })
 }

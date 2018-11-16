@@ -27,7 +27,7 @@ class NotesRouter{
         
         return this.notesService.addNote(req.body)
             // .then((data)=>res.json(data))
-            .then(()=>res.status(204).send())
+            .then(()=>res.redirect('/'))
             .catch((err)=>res.status(500).json(err));
     }
 
@@ -36,7 +36,7 @@ class NotesRouter{
 
         return this.notesService.updateNote(req.params.id,req.body)
             // .then((data)=>res.json(data))
-            .then(()=>res.send('/'))
+            .then(()=>res.status(204).send())
             .catch((err)=> res.status(500).json(err));
     }
 

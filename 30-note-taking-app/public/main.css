@@ -54,20 +54,20 @@ h6{
 .btn{
     display:block;
     margin: 10px 0 20px 0;
-    /* border-color:#cfe656 !important; */
+ 
 }
 
 
 .saveDeleteButtons{
     display:flex;
-    justify-content: space-between;
+
 }
 
 #deleteButton{
-    margin-right:2vw;
+    margin-left:2vw;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
     .header{
         padding:15px 0px 15px 15px;
     }
@@ -86,6 +86,6 @@ h6{
     }
 
     #deleteButton{
-        margin-right:2vw;
+        margin-left:2vw;
     }
 }

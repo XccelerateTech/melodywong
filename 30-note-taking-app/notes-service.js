@@ -23,8 +23,11 @@ class NotesService{
     }
 
     addNote(note){
+
+        console.log("note",note)
       
         return new Promise((resolve,reject)=>{
+            
 
             this.listNotePromise.then(()=>{
                 var object={
@@ -52,6 +55,9 @@ class NotesService{
                     'text':note.text
                 }
                 this.notes.splice(id,1,object);
+
+                fs.truncate(this.filename, 0, function(){console.log('done')})
+
                 fs.writeFile(this.filename, JSON.stringify(this.notes),(err)=>{
                     if(err){
                         reject(err);
@@ -81,6 +87,7 @@ class NotesService{
         })
 
     }
+    
 }
 
 
