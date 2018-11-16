@@ -1,3 +1,5 @@
+let selectedNote=-1;
+
 function escapeHtml(unsafe) {
     return unsafe
          .replace(/&/g, "&amp;")
@@ -14,7 +16,7 @@ function update(){
     })
     .done(function(data){
         function notes(i,title,text){
-            return `<div class='noteLink' onclick="loadNote(${i},'${title}','${text}')">${title}</div>`
+            return `<div id="list${i}" class='noteLink' onclick="loadNote(${i},'${title}','${text}')">${title}</div>`
         }
 
         $('.allnotes').html('');
@@ -24,6 +26,11 @@ function update(){
             $('.allnotes').append(notes(i,escapeHtml(data[i].title),escapeHtml(data[i].text)))
                     
         }
+
+        if (selectedNote>=0){
+            //change color
+            $(`#list${selectedNote}`).css('background-color','#e6eebe');
+        }
     })
     .fail(function() {
         alert( "Update List Error" );
@@ -32,6 +39,8 @@ function update(){
 
 
 $('#addNew').on('click',function(){
+    selectedNote=-1;
+    $(`.noteLink`).css('background-color','#ffffff');
     $('.content').html();
     $('.content').html(`
 
@@ -77,6 +86,9 @@ $('#addNew').on('click',function(){
 
 
  function loadNote(i,title,data){
+   
+    $(`.noteLink`).css('background-color','#ffffff');
+    $(`#list${i}`).css('background-color','#e6eebe');
     
                     $('.content').html(`
                     <form id='note'>
@@ -97,28 +109,31 @@ $('#addNew').on('click',function(){
 }
     
 function putNote(i){
+ selectedNote=i;
     let form=$('#note')
-
     $.ajax({
         type: 'post',
         url: `/api/notes/${i}?_method=PUT`,
         data: form.serialize()
-      }).done(function() {
-        update()
+      }).then(function() {
+        update();
       }).fail(function() {
         alert("Put Note Error!")
       });
  }
 
 function deleteNote(i){   
+    selectedNote=-1;
     $.post( `/api/notes/${i}?_method=DELETE`)
     .done(function(data){
-        $.get( "/api/notes")
-        .done(function(data){
-            $('.allnotes').html('');
-            for(var i=0;i<data.length;i++){
-                $('.allnotes').append(`<div class='noteLink' onclick="loadNote(${i},'${data[i].title}','${data[i].text}')">${data[i].title}</div>`)       
-            
+        
+        // $.get( "/api/notes")
+        // .done(function(data){
+            // $('.allnotes').html('');
+            // for(var i=0;i<data.length;i++){
+                // $('.allnotes').append(`<div class='noteLink' onclick="loadNote(${i},'${data[i].title}','${data[i].text}')">${data[i].title}</div>`)       
+                update();
+                
                 $('.content').html();
                 $('.content').html(`
             
@@ -133,12 +148,12 @@ function deleteNote(i){
                 `)
             
             }
-        })
+        )
         
     .fail(function() {
         alert( "Delete Note Error" );
     });
-})
+// })
 }
 
 //produce list on load
