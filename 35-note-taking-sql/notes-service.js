@@ -1,4 +1,3 @@
-const fs=require('fs')
 const knex = require('knex')({
     client: 'postgresql',
     connection: {
@@ -11,16 +10,15 @@ const knex = require('knex')({
 class NotesService{
     constructor(filename){
         this.filename=filename;
-        this.notes=[];
-        // this.listNotePromise=this.listNote(); //storing the listNote()
+        this.userID;
 
     }
 
-    listNote(){
+    listNote(id){
         return new Promise((resolve,reject)=>{
             
-
-            let query = knex.select("*").from("notes_list").orderBy("NoteId");
+            this.userID=id;
+            let query = knex.select("*").from("notes_list").orderBy("NoteId").where("UserId",id);
 
             query.then((rows)=>{
                 console.log("knex list");
@@ -39,7 +37,7 @@ class NotesService{
         return new Promise((resolve,reject)=>{
             
 
-            let query = knex("notes_list").insert({"UserId":'1',"Title":`${note.title}`,"Text":`${note.text}`})
+            let query = knex("notes_list").insert({"UserId":`${note.userID}`,"Title":`${note.title}`,"Text":`${note.text}`})
 
 
             query.then((rows)=>{
@@ -58,7 +56,7 @@ class NotesService{
         return new Promise((resolve,reject)=>{
             console.log("updating notes")
             
-            let query = knex("notes_list").update({"UserId":'1',"Title":`${note.title}`,"Text":`${note.text}`}).where("NoteId",id)
+            let query = knex("notes_list").update({"UserId":`${this.userID}`,"Title":`${note.title}`,"Text":`${note.text}`}).where("NoteId",id)
 
 
             query.then((rows)=>{

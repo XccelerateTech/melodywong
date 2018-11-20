@@ -1,4 +1,5 @@
 let selectedNote=-1;
+let userID;
 
 function escapeHtml(unsafe) {
     return unsafe
@@ -10,12 +11,15 @@ function escapeHtml(unsafe) {
  }
 
 function update(){
+    console.log("User ID: ",userID);
+ 
+ 
     $.ajax( {
         type:'get',
-        url:"/api/notes"
+        url:`/api/notes/${userID}`,
     })
     .done(function(data){
-
+        
         function notes(i,title,text,noteId){
             return `<div id="list${i}" class='noteLink' onclick="loadNote(${i},'${title}','${text}','${noteId}')">${title}</div>`
         }
@@ -74,7 +78,8 @@ $('#addNew').on('click',function(){
 
     axios.post('/api/notes', {
         title: $('#title').val(),
-        text:$('#text').val()
+        text:$('#text').val(),
+        userID:userID,
         
     }).then(function(res){
         update();
@@ -88,7 +93,7 @@ $('#addNew').on('click',function(){
 
 
  function loadNote(i,title,data,id){
-//    alert(id);
+    selectedNote=i;
     $(`.noteLink`).css('background-color','#ffffff');
     $(`#list${i}`).css('background-color','#e6eebe');
     
@@ -111,7 +116,6 @@ $('#addNew').on('click',function(){
 }
     
 function putNote(i){
- selectedNote=i;
     let form=$('#note')
     $.ajax({
         type: 'post',
@@ -128,12 +132,7 @@ function deleteNote(i){
     selectedNote=-1;
     $.post( `/api/notes/${i}?_method=DELETE`)
     .done(function(data){
-        
-        // $.get( "/api/notes")
-        // .done(function(data){
-            // $('.allnotes').html('');
-            // for(var i=0;i<data.length;i++){
-                // $('.allnotes').append(`<div class='noteLink' onclick="loadNote(${i},'${data[i].title}','${data[i].text}')">${data[i].title}</div>`)       
+              
                 update();
                 
                 $('.content').html();
@@ -164,21 +163,74 @@ function promptLogin(){
     <div id="promptLogin" style="position:absolute;left:0px;top:0px;z-index:10;height:100vh; width:100vw; background-color:black; opacity:0.6">
     </div> 
     <div id="loginBox"  class="d-flex justify-content-center align-items-center flex-column">
-    <h4>Login</h4>
+    <h4>Welcome to Note.app</h4>
     <form id='loginForm' class="d-flex flex-column">
     Username:
     <input type='text' name='username' id="username"></input>
     Password:
     <input type='password' name='password' id="password"></input>
     </form>
-    <button class="btn btn-outline-success">Submit</button>
+    <div id="loginError"></div>
+    <div class="d-flex">
+    <button id="checkLoginButton" class="btn btn-outline-success" onclick="checkLogin()">Login</button>
+    <button class="btn btn-outline-primary" onclick="newUser()">Create account</button>
+    </div>
     </div>
     `)
 }
 
+function checkLogin(){
+    $.ajax( {
+        type:'post',
+        url:"/api/auth",
+        data: $('#loginForm').serialize()
+    })
+    .done(function(data){
+        console.log('check data', data)
+        if (data.status===true){
+            userID=data.id;
+            $('#promptLogin').remove();
+            $('#loginBox').remove();
+            $('#welcome').html(`<h5>Welcome back ${data.username}!</h5>`)
+            update();
+
+        } else{
+            $('#loginError').html(`<p style="color:red">Wrong username or password.`)
+        }
+        
+    })
+    .fail(function() {
+        alert( "Check Login Error" );
+    });
+}
+
+function newUser(){
+    let newUserName=$('#username').val()
+    $.ajax( {
+        type:'post',
+        url: `/api/auth/0?_method=PUT`,
+        data: $('#loginForm').serialize()
+    })
+    .done(function(data){
+        console.log(data[0].UserId)
+        userID=data[0].UserId;
+     
+            $('#promptLogin').remove();
+            $('#loginBox').remove();
+            $('#welcome').html(`<h5>Welcome back ${newUserName}!</h5>`)
+            update();
+
+    })
+    .fail(function(err) {
+        alert(err );
+    });
+}
+
+
+
 //produce list on load
-update();
 
 
-// promptLogin();
+
+promptLogin();
 

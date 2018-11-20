@@ -19,12 +19,17 @@ app.use(methodOverride('_method'));
 
 const ViewRouter = require('./ViewRouter');
 const NotesRouter = require('./notes-router');
-const NotesService = require('./notes-service')
+const NotesService = require('./notes-service');
+const AuthRouter=require('./auth-router');
+const AuthService=require('./auth-service')
+
 
 let notesService = new NotesService(knex);
+let authService = new AuthService(knex);
 
 app.use('/',new ViewRouter().router()); // only requests to '/' will be sent to new router
 app.use('/api/notes',new NotesRouter(notesService).router());
+app.use('/api/auth',new AuthRouter(authService).router());
 
 
 
