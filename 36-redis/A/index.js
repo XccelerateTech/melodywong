@@ -1,4 +1,6 @@
-//use axios to get data from blockchain api
+//use axios to get data and json parse from blockchain latest block api
+//txindex 
+//read latest block every 10 minutes
 
 var redis = require('redis');
 var client = redis.createClient({
