@@ -1,0 +1,59 @@
+.header{
+    background-color:#FFC0CB;
+    padding:10px 0px 10px 30px;
+    height:10vh;
+}
+
+body{
+    font-family: 'Itim', cursive;
+}
+
+/* List */
+#chatList{
+    border-right:2px #ccc solid;
+    height:90vh
+}
+
+p {  
+    margin-top: 0.4em; 
+    margin-bottom: 0em; 
+}
+
+/* Message */
+#friend{
+    height:8vh;
+    background-color:lightskyblue;
+    padding:10px;  
+}
+
+#messages{
+    overflow-y: scroll;
+}
+
+#messageForm{
+    height:10vh;
+    position:absolute;
+    top:80vh
+}
+
+#messageField{
+    margin-right:10px;
+    width:60vw;
+
+}
+
+#chatBox{
+padding:10px
+}
+
+#sendMessage{
+    color:#fff;
+    background-color:#FFC0CB;
+    border-color: #FFC0CB;
+}
+
+#sendMessage:hover{
+    border-color: #FFC0CB;
+    color:#FFC0CB;
+    background-color:#fff;
+}
