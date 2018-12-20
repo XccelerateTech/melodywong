@@ -8,8 +8,8 @@ const knex = require('knex')({
 });
 
 class NotesService{
-    constructor(filename){
-        this.filename=filename;
+    constructor(table){
+        this.table=table;
         this.userID;
 
     }
