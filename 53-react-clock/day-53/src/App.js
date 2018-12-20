@@ -3,6 +3,11 @@ import './App.css';
 import Clock from './clock';
 import AddItem from './Additem'
 import DisplayList from './DisplayList'
+import Navbar from './Navbar'
+import DisplayItem from './DisplayItem'
+import {ReactDOM} from 'react-dom'
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import NoMatch from './NoMatch'
 
 class App extends Component {
   constructor(){
@@ -40,11 +45,24 @@ class App extends Component {
     return (
       <div className="App">
 
-         <Clock />
-       
-         <DisplayList name={this.state.name} list={this.state.list} deleteItem={this.deleteItem}/>
+    
+        <Router>
+          <div>
+            <Navbar/>
+             <Switch>
+            <Route exact path="/" component={Clock} />
+            <Route exact path="/additem" component={AddItem} addItem={this.addItem}/>
+            <Route exact path="/displaylist" component={ DisplayList } name={this.state.name} list={this.state.list} deleteItem={this.deleteItem}/>
+            <Route exact path="/displayitem/:id" component={ DisplayItem } />
+            <Route component={NoMatch}/>
+            </Switch>
+          </div>
+        </Router>
 
-        <AddItem addItem={this.addItem} />
+       
+         
+
+        
 
         
       </div>

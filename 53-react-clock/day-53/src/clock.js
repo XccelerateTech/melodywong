@@ -10,7 +10,12 @@ class Clock extends Component {
 
     }
 
+    jump=()=>{
+        this.props.history.push('/displayitem/2')
+    }
+
     componentDidMount(){
+        
         this.timeID=setInterval(
             ()=>this.tick(),
             1000
@@ -32,10 +37,15 @@ class Clock extends Component {
 
     render(){
 
+       
+
         return(
             <div>
                 <p> Hello clock. </p>
                 {this.state.date}
+                <button onClick={this.jump}> Jump </button>
+
+             
 
             </div>
         )
