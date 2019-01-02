@@ -12,7 +12,8 @@
     "array-type":[false],
     "object-literal-sort-keys": [false],
     "jsx-no-lambda":[false],
-    "noImplicitReturns":[false]
+    "noImplicitReturns":[false],
+    "ordered-imports": [false]
 
   },
   "jsRules":{
