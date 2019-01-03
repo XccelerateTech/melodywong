@@ -13,7 +13,7 @@ class AddItem extends Component {
     }
 
     handleChange = (e) =>{
-        console.log(this.props)
+
         this.setState({
             items: e.target.value
         })

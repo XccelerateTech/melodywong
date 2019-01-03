@@ -5,8 +5,7 @@ import AddItem from './Additem'
 import DisplayList from './DisplayList'
 import Navbar from './Navbar'
 import DisplayItem from './DisplayItem'
-import {ReactDOM} from 'react-dom'
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NoMatch from './NoMatch'
 
 
