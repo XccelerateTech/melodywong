@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Clock from './clock';
 import AddItem from './Additem'
+import loadLinks from './loadLinks'
 import DisplayList from './DisplayList'
 import Navbar from './Navbar'
 import DisplayItem from './DisplayItem'
@@ -29,8 +30,8 @@ class App extends Component {
             <Navbar/>
              <Switch>
             <Route exact path="/" component={Clock} />
-            <Route exact path="/additem" component={AddItem} addItem={this.addItem}/>
-            <Route exact path="/displaylist" component={ DisplayList } />
+            <Route exact path="/additem" component={AddItem} />
+            <Route exact path="/displaylist" component={ loadLinks } />
             <Route exact path="/displayitem/:id" component={ DisplayItem } />
             <Route component={NoMatch}/>
             </Switch>

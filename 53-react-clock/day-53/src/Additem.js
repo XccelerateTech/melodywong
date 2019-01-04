@@ -22,14 +22,18 @@ class AddItem extends Component {
 
     addItem = (e) =>{
         e.preventDefault();
-        let item={
-            id: Math.random(),
-            item: this.state.items,
+        if (this.state.items.trim() !== '' && this.state.items.trim() !== null){
+            let item={
+                id: Math.random(),
+                item: this.state.items,
+            }
+    
+            this.props.addItem({item:item});
+    
+            this.setState({items: '',})
+
         }
-
-        this.props.addItem({item:item});
-
-        this.setState({items: '',})
+        
       }
     
       
