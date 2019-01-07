@@ -21,16 +21,18 @@ export const clear = () => {
 
 export function loadLink() {
     return (dispatch) => {
-      return axios('https://www.reddit.com/r/programming.json').then((res) => {
-        let threads = res.data;
-        let links = threads.data.children.map((t) => ({
-          title: t.data.title,
-          url: t.data.url
-        }));
-        dispatch(loadLinkSuccess(links));
-      }).catch((err) => {
-        console.log('Failed', err);
-        dispatch(loadLinkFailure());
-      });
+      return (
+        axios('https://www.reddit.com/r/programming.json').then((res) => {
+            let threads = res.data;
+            let links = threads.data.children.map((t) => ({
+            title: t.data.title,
+            url: t.data.url
+            }));
+            dispatch(loadLinkSuccess(links));
+            }).catch((err) => {
+                console.log('Failed', err);
+                dispatch(loadLinkFailure());
+            })
+      )
     };
   }

@@ -18,7 +18,7 @@ class Navbar extends Component {
                     <Link to={`/additem`}><span className="nav-link">Add Item</span></Link>
                     </li>
                     <li className="nav-item">
-                    <Link to={`/displaylist`}> <span className="nav-link">Shopping List</span></Link>
+                    <Link to={`/displaylist`}> <span className="nav-link">Links</span></Link>
                     </li>
                     </ul>
                    
